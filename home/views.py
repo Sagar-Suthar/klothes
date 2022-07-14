@@ -11,6 +11,7 @@ from .models import *
 from .models import User    
 from django.http import JsonResponse
 import datetime
+from .models import Customer
 
 # Create your views here.
 def index(request):
@@ -34,7 +35,9 @@ def signup(request):
        if form.is_valid():
            form.save()
            x=form.cleaned_data.get('username')
-           customer=Customer(name=x)
+           u=User.objects.get(username=x)
+           
+           customer=Customer(user=u,name=x)
            customer.save()
            return render(request,'loggedout.html',{'msg':'account created'})
         # name=request.POST.get('name')
@@ -99,7 +102,7 @@ def jeans(request):
     
 def cart(request):
     if request.user.is_authenticated:
-        customer=request.user.customer 
+        customer=request.user.customer
         order,created=Order.objects.get_or_create(customer=customer,complete=False)
         items=order.orderitem_set.all()
     else:
