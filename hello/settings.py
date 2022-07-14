@@ -29,7 +29,7 @@ SECRET_KEY = 'django-insecure-mgtvzwgnal__@&$lgeb!%h%3ce=zgc1n=^zv)e(k+uc35@uitd
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -82,7 +82,7 @@ WSGI_APPLICATION = 'hello.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME':os.path.join( BASE_DIR ,'db.sqlite3'),
     }
 }
 
@@ -134,5 +134,7 @@ STATICFILES_STORAGE ='whitenoise.storage.CompressedManifestStaticFilesStorage'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+STATIC_ROOT =os.path.join( BASE_DIR ,'static')
 
 django_heroku.settings(locals())
